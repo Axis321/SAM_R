@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Room-Mapping Robot: ToF + Encoder Simulator</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+ <div class="win"><h3><span>3D room: ward with beds and IV stands</span><span>drag = orbit · wheel = zoom · click floor = waypoint</span></h3>
+  <div id="view"><canvas id="c3"></canvas></div>
+  <div class="bar"><button id="bAuto" class="on">AI auto-waypoints</button><button id="bCam" class="on">Camera assist</button><button id="bPause">Pause</button><button id="bFollow">Follow cam</button><button id="bReset">Reset</button>
+  <label>Speed <input id="spd" type="range" min="0.5" max="3" step="0.5" value="1"></label></div>
+  <div class="bar">Scenario <select id="scn"><option value="ward">Ward</option><option value="nursing">Nursing station</option><option value="course">Obstacle course</option><option value="empty">Empty room</option><option value="custom">Custom</option></select><button id="bEdit">Edit layout</button><button id="bDrop">Drop crate in path</button><button id="bRounds">Run rounds</button></div>
+  <div class="bar" id="ed" style="display:none">Tool <button data-t="bed" class="on">Bed</button><button data-t="stand">IV stand</button><button data-t="table">Table</button><button data-t="crate">Crate</button><button data-t="counter">Counter</button><button data-t="rot">Rotate</button><button data-t="del">Delete</button><button data-t="start">Set start</button><button id="bClear">Clear all</button></div></div>
+ <div class="col">
+  <div class="win"><h3><span>ToF view (robot frame)</span><span id="tofR">—</span></h3><canvas id="cr"></canvas></div>
+  <div class="win"><h3><span>XIAO ESP32 camera (onboard view)</span><span id="camS">labeled 0/9</span></h3><div style="position:relative"><canvas id="cc" width="320" height="240"></canvas><canvas id="co" width="320" height="240" style="position:absolute;inset:0"></canvas></div></div>
+  <div class="win"><h3><span>Top-down map (ToF + camera labels)</span><span>click = waypoint</span></h3><canvas id="cm"></canvas></div>
+  <div class="win"><h3><span>Pipeline and telemetry</span></h3>
+   <div class="pipe" id="pipe"></div>
+   <div class="tel"><div>State<b id="tS">—</b></div><div>Pose x, z<b id="tP">—</b></div><div>Heading<b id="tH">—</b></div>
+   <div>Servo<b id="tV">—</b></div><div>Encoder L<b id="tL">0</b></div><div>Encoder R<b id="tRr">0</b></div><div>MPU gyro Z<b id="tG">0</b></div><div>MPU yaw<b id="tYG">0</b></div><div>Encoder yaw<b id="tYE">0</b></div></div>
+   <pre id="log"></pre></div>
+ </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
